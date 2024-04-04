@@ -35,7 +35,8 @@ THIN=`pwd`/"thin"
 
 #FDK_AAC=`pwd`/../fdk-aac-build-script-for-iOS/fdk-aac-ios
 
-CONFIGURE_FLAGS="--enable-cross-compile --disable-debug --disable-programs \
+# --enable-gpl build libpostproc
+CONFIGURE_FLAGS="--enable-cross-compile --disable-debug --enable-gpl \
                  --disable-doc --enable-pic --disable-audiotoolbox"
 
 if [ "$X264" ]
