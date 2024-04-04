@@ -1,7 +1,24 @@
 #!/bin/sh
 
+
+
+#sudo git clone https://github.com/bigsen/gas-preprocessor.git  /usr/local/bin/gas
+#sudo cp /usr/local/bin/gas/gas-preprocessor.pl /usr/local/bin/gas-preprocessor.pl
+#sudo chmod 777 /usr/local/bin/gas-preprocessor.pl
+#sudo rm -rf /usr/local/bin/gas/
+
+
+# yasm是汇编编译器，因为ffmpeg中为了提高效率用到了汇编指令，所以编译时需要安装
+#curl http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz -o yasm-1.3.0.gz
+#tar -zxvf yasm-1.3.0.gz
+#cd yasm-1.3.0
+#./configure && make -j 4 && sudo make install
+
+
+
+
 # directories
-FF_VERSION="4.3.1"
+FF_VERSION="6.1.1"
 #FF_VERSION="snapshot-git"
 if [[ $FFMPEG_VERSION != "" ]]; then
   FF_VERSION=$FFMPEG_VERSION
@@ -19,7 +36,7 @@ THIN=`pwd`/"thin"
 #FDK_AAC=`pwd`/../fdk-aac-build-script-for-iOS/fdk-aac-ios
 
 CONFIGURE_FLAGS="--enable-cross-compile --disable-debug --disable-programs \
-                 --disable-doc --enable-pic"
+                 --disable-doc --enable-pic --disable-audiotoolbox"
 
 if [ "$X264" ]
 then
@@ -34,12 +51,12 @@ fi
 # avresample
 #CONFIGURE_FLAGS="$CONFIGURE_FLAGS --enable-avresample"
 
-ARCHS="arm64 armv7 x86_64 i386"
+ARCHS="arm64 x86_64"
 
 COMPILE="y"
 LIPO="y"
 
-DEPLOYMENT_TARGET="8.0"
+DEPLOYMENT_TARGET="16.0"
 
 if [ "$*" ]
 then
@@ -83,7 +100,7 @@ then
 	if [ ! -r $SOURCE ]
 	then
 		echo 'FFmpeg source not found. Trying to download...'
-		curl http://www.ffmpeg.org/releases/$SOURCE.tar.bz2 | tar xj \
+		curl https://ffmpeg.org/releases/$SOURCE.tar.xz | tar xj \
 			|| exit 1
 	fi
 
